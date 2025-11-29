@@ -1,0 +1,113 @@
+spring:
+  application:
+    name: springboot
+  
+  # 数据源配置（不变）
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/heritage_db?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+  # 安全配置（不变）
+  security:
+    user:
+      name: admin
+      password: admin
+  main:
+    allow-bean-definition-overriding: true
+
+  # 邮件配置（不变）
+  mail:
+    host: smtp.qq.com
+    username: 2933128731@qq.com
+    password: nbsifsoabmpldeab
+    default-encoding: utf-8
+    port: 587
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            protocols: TLSv1.2
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+
+  # Web配置（不变）
+  mvc:
+    static-path-pattern: /**
+  web:
+    resources:
+      static-locations: classpath:/static/, file:./files/
+
+  # 文件上传配置（不变）
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+  # JSON配置（不变）
+  jackson:
+    default-property-inclusion: non_empty
+
+  # Spring AI配置（仅删冗余行，其他不变）
+  ai:
+    openai:
+      api-key: sk-ymbknmrlhukytywbbrjybgrkdgczkduozmrsmvxjsihzqijv
+#      base-url: https://api.siliconflow.cn
+      base-url: https://api.openai.com/v1
+      chat:
+        options:
+#          model: deepseek-ai/DeepSeek-V3
+          model: gpt-3.5-turbo
+          temperature: 0.7
+
+# 其他配置（服务器、MyBatis-Plus、Knife4j、JWT、文件管理）均不变
+server:
+  port: 8889
+  servlet:
+    context-path: /
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  enable-spring-security: false
+  paths-to-match: /**
+  packages-to-scan: org.example.springboot
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+  basic:
+    enable: true
+    username: admin
+    password: admin
+
+jwt:
+  secret: MySecretKeyForJWT2025!@#$%^&*()_+SecureKeyHere
+  expiration: 86400000
+  refresh-expiration: 604800000
+  header: Authorization
+  token-prefix: "Bearer "
+
+file:
+  upload:
+    path: ./files
+    maxSize: 524288000
