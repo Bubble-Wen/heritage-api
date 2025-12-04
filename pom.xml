@@ -25,6 +25,7 @@
         <hutool.version>5.8.25</hutool.version>
         <fastjson2.version>2.0.45</fastjson2.version>
         <knife4j.version>4.3.0</knife4j.version>
+        <spring-ai.version>1.1.0</spring-ai.version>
 <!--        <spring-ai.version>1.0.0-SNAPSHOT</spring-ai.version>-->
     </properties>
 
@@ -78,6 +79,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.ai</groupId>-->
+<!--            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -153,31 +160,38 @@
             <version>${knife4j.version}</version>
         </dependency>
 
-        <!-- 6. Spring AI 依赖 -->
-        <!-- Spring AI 核心依赖（1.0.0-M4 稳定版，仓库必存） -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.ai</groupId>-->
-<!--            <artifactId>spring-ai-core</artifactId>-->
-<!--            <version>1.0.0-M4</version>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; OpenAI 对接依赖（1.0.0-M4 标准坐标，无歧义） &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.ai</groupId>-->
-<!--            <artifactId>spring-ai-openai</artifactId>-->
-<!--            <version>1.0.0-M4</version>-->
-<!--        </dependency>-->
+<!--        &lt;!&ndash; 6. Spring AI 依赖 &ndash;&gt;-->
+<!--        &lt;!&ndash; Spring AI 核心依赖（1.0.0-M4 稳定版，仓库必存） &ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.ai</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-ai-core</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <version>1.0.0-M4</version>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash; OpenAI 对接依赖（1.0.0-M4 标准坐标，无歧义） &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.ai</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-ai-openai</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <version>1.0.0-M4</version>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
 
-        <!-- Spring AI 核心依赖 -->
+<!--        &lt;!&ndash; Spring AI 核心依赖 &ndash;&gt;-->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-core</artifactId>
             <version>1.0.0-M5</version>
         </dependency>
-        <!-- OpenAI 客户端依赖（提供 OpenAiChatModel） -->
+<!--        &lt;!&ndash; OpenAI 客户端依赖（提供 OpenAiChatModel） &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.ai</groupId>-->
+<!--            <artifactId>spring-ai-openai</artifactId>-->
+<!--            <version>1.0.0-M5</version>-->
+<!--        </dependency>-->
+
+        <!--         spring-ai -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-openai</artifactId>
-            <version>1.0.0-M5</version>
+            <artifactId>spring-ai-starter-model-openai</artifactId>
+            <version>${spring-ai.version}</version>
         </dependency>
 
         <!-- 7. 日志依赖（替换默认日志为 Log4j2） -->
