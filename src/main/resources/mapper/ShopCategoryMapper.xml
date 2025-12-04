@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.springboot.mapper.ShopCategoryMapper">
+
+    <!-- 查询所有启用的分类 -->
+    <select id="selectEnabledCategories" resultType="org.example.springboot.entity.ShopCategory">
+        SELECT id, name, status, create_time, update_time
+        FROM shop_category
+        WHERE status = 1
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 统计分类下的商品数量 -->
+    <select id="countProductsByCategory" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM shop_product
+        WHERE category_id = #{categoryId}
+    </select>
+
+    <!-- 批量更新分类状态 -->
+    <update id="batchUpdateStatus">
+        UPDATE shop_category
+        SET status = #{status}, update_time = NOW()
+        WHERE id IN
+        <foreach collection="categoryIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>
