@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.springboot.mapper.HeritageItemMapper">
+
+    <!-- 分页查询非遗作品列表 -->
+    <select id="selectPageWithConditions" resultType="org.example.springboot.entity.HeritageItem">
+        SELECT * FROM heritage_item
+        <where>
+            <if test="query.title != null and query.title != ''">
+                AND title LIKE CONCAT('%', #{query.title}, '%')
+            </if>
+            <if test="query.category != null and query.category != ''">
+                AND category = #{query.category}
+            </if>
+            <if test="query.region != null and query.region != ''">
+                AND region = #{query.region}
+            </if>
+            <if test="query.status != null">
+                AND status = #{query.status}
+            </if>
+            <if test="query.creatorId != null and query.creatorId != ''">
+                AND creator_id = #{query.creatorId}
+            </if>
+            <if test="query.startDate != null and query.startDate != ''">
+                AND DATE(create_time) >= #{query.startDate}
+            </if>
+            <if test="query.endDate != null and query.endDate != ''">
+                AND DATE(create_time) &lt; #{query.endDate}
+            </if>
+        </where>
+        <choose>
+            <when test="query.orderBy != null and query.orderBy != ''">
+                ORDER BY ${query.orderBy}
+                <if test="query.orderDirection != null and query.orderDirection != ''">
+                    ${query.orderDirection}
+                </if>
+            </when>
+            <otherwise>
+                ORDER BY create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 根据类别统计作品数量 -->
+    <select id="countByCategory" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM heritage_item WHERE category = #{category}
+    </select>
+
+    <!-- 根据地区统计作品数量 -->
+    <select id="countByRegion" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM heritage_item WHERE region = #{region}
+    </select>
+
+    <!-- 根据状态统计作品数量 -->
+    <select id="countByStatus" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM heritage_item WHERE status = #{status}
+    </select>
+
+    <!-- 根据创建人ID查询作品列表 -->
+    <select id="selectByCreatorId" resultType="org.example.springboot.entity.HeritageItem">
+        SELECT * FROM heritage_item 
+        WHERE creator_id = #{creatorId} 
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 获取热门作品列表 -->
+    <select id="selectPopularItems" resultType="org.example.springboot.entity.HeritageItem">
+        SELECT * FROM heritage_item 
+        WHERE status = 2 
+        ORDER BY publish_time DESC, create_time DESC 
+        LIMIT #{limit}
+    </select>
+
+    <!-- 获取最新发布的作品列表 -->
+    <select id="selectLatestPublished" resultType="org.example.springboot.entity.HeritageItem">
+        SELECT * FROM heritage_item 
+        WHERE status = 2 
+        ORDER BY publish_time DESC 
+        LIMIT #{limit}
+    </select>
+
+    <!-- 根据关键词搜索作品 -->
+    <select id="searchByKeyword" resultType="org.example.springboot.entity.HeritageItem">
+        SELECT * FROM heritage_item 
+        WHERE status = 2 
+        AND (
+            title LIKE CONCAT('%', #{keyword}, '%') 
+            OR summary LIKE CONCAT('%', #{keyword}, '%')
+            OR description LIKE CONCAT('%', #{keyword}, '%')
+            OR category LIKE CONCAT('%', #{keyword}, '%')
+            OR region LIKE CONCAT('%', #{keyword}, '%')
+        )
+        ORDER BY create_time DESC 
+        LIMIT #{limit}
+    </select>
+
+</mapper>
+
